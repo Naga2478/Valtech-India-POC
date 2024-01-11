@@ -21,41 +21,27 @@ const envConfig = process.env.CONTENTSTACK_API_KEY
   : publicRuntimeConfig;
 
 const liveEdit = envConfig.CONTENTSTACK_LIVE_EDIT_TAGS === 'true';
-export const getHeaderRes = async (lang) => {
-  console.log('CONTENTSTACK_DELIVERY_TOKEN:', process.env.CONTENTSTACK_DELIVERY_TOKEN);
-
-  let contentTypeUid;
-  if (process.env.CONTENTSTACK_ENVIRONMENT === 'commerce') {
-    contentTypeUid = 'commerce_header';
-  } else {
-    contentTypeUid = 'header';
-  }
-  console.log('Selected contentTypeUid:', contentTypeUid);
+export const getHeaderRes = async (lang) => {  
   const response = await Stack.getEntry({
-    contentTypeUid,
+    'header',
     referenceFieldPath: ['navigation_menu.page_reference','navigation_menu.sub_menu.page_reference'],
     jsonRtePath: ['notification_bar.notification_message'],
     locale: lang ?? locale,
   });
 
-  liveEdit && addEditableTags(response[0][0], contentTypeUid, true);
+    liveEdit && addEditableTags(response[0][0], 'header', true);
   return response[0][0];
 };
 
 export const getFooterRes = async (lang) => {
-  let contentTypeUid;
-  if (process.env.CONTENTSTACK_ENVIRONMENT === 'commerce') {
-    contentTypeUid = 'commerce_footer';
-  } else {
-    contentTypeUid = 'footer';
-  }
+  
   const response = await Stack.getEntry({
-    contentTypeUid,
+      'footer',
     referenceFieldPath:['footer_section.nav_links.page_reference'],
     jsonRtePath: ['copyright'],
     locale: lang ?? locale,
   });
-  liveEdit && addEditableTags(response[0][0], contentTypeUid, true);
+    liveEdit && addEditableTags(response[0][0], 'footer', true);
   return response[0][0];
 };
 
@@ -71,35 +57,23 @@ export const getAnalyticsRes = async (lang) => {
 };
 
 export const getAllEntries = async (lang) => {
-  let contentTypeUid;
-
-  if (process.env.CONTENTSTACK_ENVIRONMENT === 'commerce') {
-    contentTypeUid = 'commerce_page';
-  } else {
-    contentTypeUid = 'page';
-  }
+  
   const response = await Stack.getEntry({
-    contentTypeUid,
+      'page',
     referenceFieldPath: ['components.related_articles.articles','components.featured_products.products'],
     jsonRtePath: undefined,
     locale: lang ?? locale,
   });
   liveEdit &&
-    response[0].forEach((entry) => addEditableTags(entry, contentTypeUid, true));
+      response[0].forEach((entry) => addEditableTags(entry, 'page', true));
 
   return response[0];
 };
 
 export const getPageRes = async (entryUrl) => {
-  let contentTypeUid;
-
-  if (process.env.CONTENTSTACK_ENVIRONMENT === 'commerce') {
-    contentTypeUid = 'commerce_page';
-  } else {
-    contentTypeUid = 'page';
-  }
+  
   const response = await Stack.getEntryByUrl({
-    contentTypeUid,
+      'page',
     entryUrl,
     referenceFieldPath: ['components.related_articles.articles','components.featured_products.products'],
     jsonRtePath: [
@@ -110,7 +84,7 @@ export const getPageRes = async (entryUrl) => {
     ],
     locale: locale,
   });
-  liveEdit && addEditableTags(response[0], contentTypeUid, true);
+    liveEdit && addEditableTags(response[0], 'page', true);
   return response[0];
 };
 
