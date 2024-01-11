@@ -23,7 +23,7 @@ const envConfig = process.env.CONTENTSTACK_API_KEY
 const liveEdit = envConfig.CONTENTSTACK_LIVE_EDIT_TAGS === 'true';
 export const getHeaderRes = async (lang) => {  
   const response = await Stack.getEntry({
-    'header',
+    contentTypeUid: 'header',
     referenceFieldPath: ['navigation_menu.page_reference','navigation_menu.sub_menu.page_reference'],
     jsonRtePath: ['notification_bar.notification_message'],
     locale: lang ?? locale,
@@ -36,7 +36,7 @@ export const getHeaderRes = async (lang) => {
 export const getFooterRes = async (lang) => {
   
   const response = await Stack.getEntry({
-      'footer',
+    contentTypeUid: 'footer',
     referenceFieldPath:['footer_section.nav_links.page_reference'],
     jsonRtePath: ['copyright'],
     locale: lang ?? locale,
@@ -59,7 +59,7 @@ export const getAnalyticsRes = async (lang) => {
 export const getAllEntries = async (lang) => {
   
   const response = await Stack.getEntry({
-      'page',
+    contentTypeUid: 'page',
     referenceFieldPath: ['components.related_articles.articles','components.featured_products.products'],
     jsonRtePath: undefined,
     locale: lang ?? locale,
@@ -73,7 +73,7 @@ export const getAllEntries = async (lang) => {
 export const getPageRes = async (entryUrl) => {
   
   const response = await Stack.getEntryByUrl({
-      'page',
+    contentTypeUid: 'page',
     entryUrl,
     referenceFieldPath: ['components.related_articles.articles','components.featured_products.products'],
     jsonRtePath: [
