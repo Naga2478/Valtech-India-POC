@@ -1,0 +1,100 @@
+.featuredProductsContainer {
+  .featuredProducts {
+    padding: 7em 0;
+    .container {
+      width: 96%;
+      margin: 0 auto;
+      padding: 0 15px;
+      .sectionHeader {
+        width: 100%;
+        padding-bottom: 20px;
+
+        .sectionTitle {
+          font-size: 2.6em;
+          font-weight: 700;
+          line-height: 1.4;
+          text-transform: capitalize;
+        }
+        .btnWrap {
+          font-weight: 500;
+          text-transform: capitalize;
+          width: fit-content;
+          .rightArrow {
+            width: 20px;
+            height: 20px;
+            transform: rotate(180deg);
+            margin-left: 10px;
+          }
+        }
+      }
+      .productSwiper {
+        position: relative;
+        margin-bottom: 30px;
+        overflow: hidden;
+        touch-action: pan-y;
+        margin-left: auto;
+        margin-right: auto;
+        list-style: none;
+        padding: 0;
+        z-index: 1;
+        display: block;
+        .swiperWrapper {
+          .swiperSlide {
+            width: 374.333px;
+            margin-right: 30px;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            flex-shrink: 0;
+            position: relative;
+            transition-property: transform;
+            display: block;
+            .productItem {
+              position: relative;
+              margin-bottom: 30px;
+              .imageHolder {
+                .productImage {
+                  background: rgb(216, 215, 215);
+                  border: 1px solid rgb(216, 215, 215);
+                  border-radius: 6px;
+                  padding: 10px;
+                  cursor: pointer;
+                  margin-bottom: 20px;
+                  width: 100%;
+                }
+              }
+              .productDetail {
+                .productTitle {
+                  font-size: 1.4em;
+                  line-height: 1.4;
+                }
+                .productPrice {
+                  font-size: 1.8em;
+                  color: #1686c7;
+                }
+              }
+            }
+          }
+        }
+      }
+      .swiperArrows {
+        display: flex;
+        justify-content: flexstart;
+        .prevButton {
+          border: none;
+          .leftArrow {
+            height: 20px;
+            width: 20px;
+          }
+        }
+        .nextButton {
+          border: none;
+          .rightArrow {
+            transform: rotate(180deg);
+            height: 20px;
+            width: 20px;
+          }
+        }
+      }
+    }
+  }
+}

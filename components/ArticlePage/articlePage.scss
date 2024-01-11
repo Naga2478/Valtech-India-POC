@@ -1,0 +1,98 @@
+.articlePageSection {
+  .mainContent {
+    padding: 7em 0;
+    .container {
+      width: 96%;
+      margin: 0 auto;
+      padding: 0 15px;
+      .postMeta {
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: 0.14em;
+        color: #8d8d8d;
+        .postDate {
+        }
+        .blogCategories {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 16px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #8d8d8d;
+        }
+      }
+      .pageTitle {
+        font-size: 3em;
+        line-height: 1.4;
+        margin: 25px 0;
+        text-transform: capitalize;
+      }
+      .featureImage {
+        margin-bottom: 20px;
+        .img {
+          display: inline-block;
+          border: 0;
+          max-width: 100%;
+          height: auto;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  .postContent {
+    blockquote {
+      font-size: 1.5em;
+      line-height: 1.4em;
+      font-weight: 500;
+      letter-spacing: 2px;
+      font-style: normal;
+      margin: 0 0 20px;
+      padding: 20px 40px;
+    }
+    .postTags {
+      .blockTag {
+        .listUnstyled {
+          list-style: none;
+          margin-bottom: 5px;
+          outline: 0;
+
+          li {
+            margin-right: 10px;
+            .btn {
+              background: #191919;
+              color: #fff;
+              border-radius: 6px;
+              padding: 0.8em 1.8em;
+              font-size: 0.65em;
+            }
+          }
+        }
+      }
+    }
+  }
+  .singlePostNavigation {
+    padding: 30px 0;
+    .postNavigation {
+      align-items: center;
+      justify-content: space-between;
+      .postPrev {
+        flex-direction: column;
+        .pageNavTitle {
+          margin: 0;
+          transition: all 0.3s ease-in;
+          font-size: 1.4em;
+          line-height: 1.4;
+        }
+      }
+      .postNext {
+        flex-direction: column;
+        .pageNavTitle {
+          margin: 0;
+          transition: all 0.3s ease-in;
+          font-size: 1.4em;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+}

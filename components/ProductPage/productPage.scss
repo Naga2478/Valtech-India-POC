@@ -1,0 +1,19 @@
+.productPageSection {
+  .mainContent {
+    width: 96%;
+    margin: 0 auto;
+    padding: 0 15px;
+    .imageContent {
+      padding: 0 10px;
+    }
+    .productContent {
+      padding: 0 20px;
+      .btn {
+        border-radius: 2px;
+        padding: 10px;
+        font-size: 18px;
+        border: 1px solid #000;
+      }
+    }
+  }
+}
