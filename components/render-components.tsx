@@ -57,7 +57,7 @@ export default function RenderComponents(props: RenderProps) {
             />
           );
         }
-        if (productPost === true && component.related_articles) {
+        if (productPost === true && component.featured_products) {
           return (
             <ProductPageSection
               productData={products}
