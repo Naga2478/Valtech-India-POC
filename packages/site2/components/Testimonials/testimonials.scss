@@ -1,0 +1,88 @@
+.testimonialsContainer {
+  .testimonials {
+    padding-bottom: 0;
+    padding-top: 7em;
+    .container {
+      width: 96%;
+      margin-right: auto;
+      margin-left: auto;
+      padding-left: 15px;
+      padding-right: 15px;
+      .reviewsContent {
+        position: relative;
+        .reviewIcon {
+          .icon {
+            width: 10rem;
+            height: 10rem;
+          }
+        }
+        .testimonialSwiper {
+          margin-left: auto;
+          margin-right: auto;
+          position: relative;
+          overflow: hidden;
+          list-style: none;
+          padding: 0;
+          z-index: 1;
+          display: block;
+          .swiperWrapper {
+            transition-duration: 0ms;
+            transform: translate3d(0px, 0px, 0px);
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: flex;
+            transition-property: transform;
+            box-sizing: content-box;
+          }
+          .swiperSlide {
+            width: 779px;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            flex-shrink: 0;
+            position: relative;
+            transition-property: transform;
+            display: block;
+            .testimonialDetail {
+              padding-left: 20px;
+              p {
+                font-size: 1.3em;
+                color: #000;
+                line-height: 1.8;
+                margin: 0 0 20px 0;
+              }
+              .authorDetail {
+                .name {
+                  font-weight: 700;
+                  color: #6995b1;
+                }
+              }
+            }
+
+          }
+          
+        }
+        .swiperArrows{
+          display: flex;
+          justify-content: flexstart;
+          .prevButton{
+            border: none;
+            .leftArrow{
+              height: 20px;
+              width: 20px;
+            }
+          }
+          .nextButton{
+            border: none;
+            .rightArrow{
+              transform: rotate(180deg);
+              height: 20px;
+              width: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

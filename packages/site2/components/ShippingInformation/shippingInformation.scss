@@ -1,0 +1,23 @@
+.shippingContainer {
+  .shippingInformation {
+    padding: 80px 0;
+    .container {
+      .iconBox {
+        display: flex;
+        align-items: flex-start;
+        margin-right: 10px;
+
+        .navigationIcon {
+            height: 22px;
+            width: 22px;
+            margin-right: 20px;
+          .blockTitle {
+            line-height: 1.2;
+            font-weight: 400;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.brandCollectionContainer {
+  padding: 18px 0;
+  .brandInformation {
+    padding: 18px 0;
+
+    background-color: #fafafa;
+
+    .brandCollection {
+      .container {
+        width: 96%;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+        .brandImage {
+          max-width: 100%;
+          height: auto;
+          margin: 20px;
+        }
+      }
+    }
+  }
+}

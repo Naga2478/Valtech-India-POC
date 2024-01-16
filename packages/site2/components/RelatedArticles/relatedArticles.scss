@@ -1,0 +1,87 @@
+.relatedArticlesContainer {
+  .relatedArticles {
+    .latestBlog {
+      padding: 7em 0;
+      .container {
+        width: 96%;
+        margin: 0 auto;
+        padding: 0 15px;
+        .sectionHeader {
+          width: 100%;
+          padding-bottom: 20px;
+          .sectionTitle {
+            text-transform: capitalize;
+
+            font-size: 2.6em;
+            font-weight: 700;
+            line-height: 1.4;
+          }
+          .btnWrap {
+            font-weight: 500;
+            text-transform: capitalize;
+            width: fit-content;
+            float: right;
+            text-align: right;
+            .rightArrow {
+              width: 20px;
+              height: 20px;
+              transform: rotate(180deg);
+              margin-left: 10px;
+            }
+          }
+        }
+        .article {
+          .postItem {
+            margin-bottom: 30px;
+            .imageHolder {
+              border-radius: 4px;
+              margin-bottom: 30px;
+              position: relative;
+              overflow: hidden;
+              .postAnchor {
+                color: #000;
+                text-decoration: none;
+                transition: 0.3s color ease-out;
+                .postImage {
+                  width: 100%;
+                  height: auto;
+                  object-fit: cover;
+                }
+              }
+            }
+            .postContent {
+              .metaDate {
+                margin-right: 15px;
+                padding-bottom: 20px;
+                margin-right: 30px;
+                line-height: 1;
+                font-weight: 200;
+                .metaDay {
+                  font-size: 2.4em;
+                  line-height: 1;
+                  font-weight: 200;
+                }
+                .metaMonth {
+                  line-height: 1.4;
+                  font-weight: 600;
+                }
+              }
+              .postHeader {
+                .postTitle {
+                  font-size: 1.3em;
+                }
+                .blogCategories {
+                  font-weight: 600;
+                  font-size: 14px;
+                  line-height: 16px;
+                  letter-spacing: 0.14em;
+                  text-transform: uppercase;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

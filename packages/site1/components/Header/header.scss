@@ -1,0 +1,108 @@
+.header {
+  .headerContainer {
+    width: 100%;
+    .contactContainer {
+      width: 100%;
+
+      .headerContact {
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 14px;
+        padding-right: 14px;
+
+        .text {
+          text-align: center;
+          padding: 4px 0;
+          color: #8d8d8d;
+          line-height: 2.5em;
+          font-size: 18px;
+          display: flex;
+          p {
+            margin: 0 auto;
+          }
+        }
+      }
+      .userContainer {
+        ul {
+          margin: 0;
+        }
+        .logoTag {
+          .navigationIcon {
+            height: 18px;
+            margin-left: 10px;
+          }
+        }
+      }
+      .languageContainer{
+        .langSwitcher{
+          text-transform: capitalize;
+          option{
+            padding: 2px;
+          }
+        }
+      }
+    }
+    .navbarContainer {
+      .productLogo {
+        flex: 0 0 170px;
+        margin: 30px;
+        .logoTag {
+          .logo {
+            width: 130px;
+          }
+        }
+      }
+      .navbar {
+        justify-content: flex-end;
+        .navItem {
+          .menuList {
+            .menuItem {
+              .itemAnchor {
+                padding: 4px 18px;
+                font-weight: 500;
+                font-size: 16px;
+                color: #000;
+                text-transform: capitalize;
+              }
+              .item-anchor:hover {
+                color: #715cdd;
+              }
+              .parentMenu {
+                font-size: 18px;
+                padding-left: 44px;
+              }
+              .subMenu {
+                display: none;
+                top: auto;
+                width: 120px;
+                position: absolute;
+                z-index: 9900;
+                text-align: left;
+                .subMenuList {
+                  padding: 10px 20px;
+                }
+              }
+            }
+            .hasSub {
+              .itemAnchor {
+                padding-right: 20px;
+                text-transform: capitalize;
+              }
+            }
+            .hasSub:hover {
+              .subMenu {
+                display: block;
+              }
+              .itemAnchor:hover {
+                color: #715cdd;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.borderBottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}

@@ -1,20 +1,16 @@
 {
-  "name": "contentstack-nextjs-starter-app",
+  "name": "contentstack-nextjs-starter-app-site1",
   "description": "A starter app for Contentstack and Nextjs",
   "version": "2.0.4",
   "private": true,
   "author": "Contentstack",
   "workspaces": [
     "packages/site1",
-    "packages/site2"
+    "packages/site2"  
   ],
   "scripts": {
-    "dev:site1": "npm --prefix packages/site1 run dev",
-    "dev:site2": "npm --prefix packages/site2 run dev",
     "dev": "next dev",
     "build": "next build",
-    "build:site1": "npm --prefix packages/site1 run build",
-    "build:site2": "npm --prefix packages/site2 run build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -23,19 +19,16 @@
     "@contentstack/utils": "^1.2.0",
     "@formio/react": "^5.3.0",
     "@textea/json-viewer": "^2.14.1",
-    "algoliasearch": "^4.22.0",
+    "algoliasearch": "^4.20.0",
     "contentstack": "^3.16.1",
     "formiojs": "^4.17.3",
     "html-react-parser": "^3.0.12",
-    "instantsearch.js": "^4.63.0",
     "moment": "^2.29.4",
     "next": "^12.3.1",
     "next-pwa": "^5.6.0",
     "nprogress": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-instantsearch": "^7.5.0",
-    "react-instantsearch-core": "^7.5.0",
     "react-instantsearch-dom": "^6.40.4",
     "react-loading-skeleton": "^3.2.0",
     "rxjs": "^7.8.1",
