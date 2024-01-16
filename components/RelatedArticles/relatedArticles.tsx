@@ -83,7 +83,7 @@ export default function RelatedArticlesSection({
                 </div>
               </div>
               <div className="row d-flex flex-wrap article">
-                {relatedArticleDetails.articles.map(
+                {relatedArticleDetails.articles.slice(0, 3).map(
                   (
                     article: {
                       $: any;
