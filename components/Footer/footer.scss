@@ -32,14 +32,15 @@
     }
   }
   .footerBottom {
-    margin: 40px auto;
-    width: 96%;
-    padding-left: 15px;
-    padding-right: 15px;
+    margin: 40px auto 0;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    max-width: 100%;
+    padding: 20px 30px;
     .copyright {
-      font-size: 18px;
+      font-size: 16px;
       line-height: 1.8;
-      margin: 0 0 20px 0;
+      margin: 0;
       color: #8d8d8d;
     }
     .socialLinks {
@@ -58,6 +59,7 @@
   .list-unstyled {
     padding-left: 0;
     list-style: none;
+    margin: 0;
   }
 
 }

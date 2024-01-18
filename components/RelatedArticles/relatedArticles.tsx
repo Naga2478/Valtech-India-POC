@@ -9,31 +9,20 @@ type ComponentProps = {
   relatedArticleData: any;
 };
 
-export default function RelatedArticlesSection({
-  relatedArticleData,
-}: ComponentProps) {
-  const subscription = eventBus.subscribe(
-    (event: { type: string; data: any }) => {
-      if (event.type === "selectedLanguage") {
-        selectedLanguage(event.data);
-      }
-    }
-  );
-  const [getDetails, setDetails] = useState(relatedArticleData);
-
-  var relatedArticleDetails = getDetails ? getDetails : undefined;
-  var locale = "en-us";
-  const selectedLanguage = (e: string) => {
-    const lang = e;
-    getAllEntries(lang);
-  };
-
+export default function RelatedArticlesSection({ relatedArticleData }: ComponentProps) {
   const { publicRuntimeConfig } = getConfig();
   const envConfig = process.env.CONTENTSTACK_API_KEY
     ? process.env
     : publicRuntimeConfig;
   const liveEdit = envConfig.CONTENTSTACK_LIVE_EDIT_TAGS === "true";
-  const getAllEntries = async (lang: string) => {
+  const locale = "en-us";
+
+  const selectedLanguage = (e: string) => {
+    const lang = e;
+    getAllEntries(lang);
+  };
+
+  const getAllEntries = async (lang = locale) => {
     const response = await Stack.getEntry({
       contentTypeUid: "page",
       referenceFieldPath: [
@@ -41,39 +30,38 @@ export default function RelatedArticlesSection({
         "components.featured_products.products",
       ],
       jsonRtePath: undefined,
-      locale: lang ?? locale,
+      locale,
     });
     liveEdit &&
       response[0].forEach((entry: EntryModel) =>
         addEditableTags(entry, "page", true)
       );
-    const componentData = response[0][0].components;
-    const data = componentData.find(
-      (component: { related_articles: any }) => component.related_articles
-    ).related_articles;
-    setDetails(data);
+    const relatedArticleDetails = response[0][0]?.components.find(
+      (component: { related_articles: any; }) => component.related_articles
+    )?.related_articles;
+    setDetails(relatedArticleDetails);
   };
+
   return (
     <div className="relatedArticlesContainer">
-      {relatedArticleDetails ? (
+      {relatedArticleData ? (
         <div className="relatedArticles">
           <div className="latestBlog">
             <div className="container">
               <div className="sectionHeader d-flex flex-wrap align-items-center justify-content-between">
                 <h2
                   className="sectionTitle"
-                  {...(relatedArticleDetails.$?.heading as {})}
+                  {...(relatedArticleData.$?.heading as {})}
                 >
-                  {relatedArticleDetails.heading}
+                  {relatedArticleData.heading}
                 </h2>
                 <div className="btnWrap">
                   <a
-                    href={relatedArticleDetails.cta.href}
+                    href={relatedArticleData.cta.href}
                     className="d-flex align-items-center btnText"
-                    {...(relatedArticleDetails.cta.$?.title as {})}
+                    {...(relatedArticleData.cta.$?.title as {})}
                   >
-                    {relatedArticleDetails.cta.title}
-                    {/*  eslint-disable-next-line @next/next/no-img-element */}
+                    {relatedArticleData.cta.title}
                     <img
                       src="/arrow.png"
                       alt="rightArrow"
@@ -83,7 +71,7 @@ export default function RelatedArticlesSection({
                 </div>
               </div>
               <div className="row d-flex flex-wrap article">
-                {relatedArticleDetails.articles.map(
+                {relatedArticleData.articles.map(
                   (
                     article: {
                       $: any;
@@ -97,67 +85,57 @@ export default function RelatedArticlesSection({
                       article_category: string;
                     },
                     index: React.Key | null | undefined
-                  ) => {
-                    return (
-                      <div className="col-md-4 postItem" key={index}>
-                        <div className="imageHolder">
-                          <a
-                            href={article.url}
-                            className="postAnchor"
-                            {...(article.$?.url as {})}
+                  ) => (
+                    <div className="col-md-4 postItem" key={index}>
+                      <div className="imageHolder">
+                        <a
+                          href={article.url}
+                          className="postAnchor"
+                          {...(article.$?.url as {})}
+                        >
+                          <img
+                            src={article.feature_image && article.feature_image.url}
+                            {...(article.feature_image.$?.url as {})}
+                            alt="post"
+                            className="postImage"
+                          />
+                        </a>
+                      </div>
+                      <div className="postContent d-flex">
+                        <div className="metaDate">
+                          <div
+                            className="metaDay"
+                            {...(article.$?.date as {})}
                           >
-                            {/*  eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src={
-                                article.feature_image &&
-                                article.feature_image.url
-                              }
-                              {...(article.feature_image.$?.url as {})}
-                              alt="post"
-                              className="postImage"
-                            />
-                          </a>
-                        </div>
-                        <div className="postContent d-flex">
-                          <div className="metaDate">
-                            <div
-                              className="metaDay"
-                              {...(article.$?.date as {})}
-                            >
-                              {new Date(article.date).getDate()}
-                            </div>
-                            <div
-                              className="metaMonth"
-                              {...(article.$?.date as {})}
-                            >
-                              {new Date(article.date).toLocaleString(
-                                "default",
-                                { month: "long" }
-                              )}{" "}
-                              - {new Date(article.date).getFullYear()}
-                            </div>
+                            {new Date(article.date).toLocaleString("default", { day: "numeric" })}
                           </div>
-                          <div className="postHeader">
-                            <h3 className="postTitle">
-                              <a
-                                href={article.url}
-                                {...(article.$?.title as {})}
-                              >
-                                {article.title}
-                              </a>
-                            </h3>
+                          <div
+                            className="metaMonth"
+                            {...(article.$?.date as {})}
+                          >
+                            {new Date(article.date).toLocaleString("default", { month: "long" })} - {new Date(article.date).getFullYear()}
+                          </div>
+                        </div>
+                        <div className="postHeader">
+                          <h3 className="postTitle">
                             <a
                               href={article.url}
-                              className="blogCategories"
-                              {...(article.$?.article_category as {})}
+                              {...(article.$?.title as {})}
                             >
-                              {article.article_category}
+                              {article.title}
                             </a>
-                          </div>
+                          </h3>
+                          <a
+                            href={article.url}
+                            className="blogCategories"
+                            {...(article.$?.article_category as {})}
+                          >
+                            {article.article_category}
+                          </a>
                         </div>
                       </div>
-                    );
-                  }
+                    </div>
+                  )
                 )}
               </div>
             </div>
@@ -169,3 +147,7 @@ export default function RelatedArticlesSection({
     </div>
   );
 }
+function setDetails(relatedArticleDetails: any) {
+  throw new Error("Function not implemented.");
+}
+

@@ -11,10 +11,13 @@ import {
   Configure,
 } from "react-instantsearch";
 
-const searchClient = algoliasearch(
-  "HVBF4EDF6F",
-  "b198abb8cfb4128a05de3c13f2bda32f"
-);
+// Reusable search configuration object
+const searchConfig = {
+  indexName: "dev_contentstackpoc",
+  analytics: false,
+};
+
+const searchClient = algoliasearch("HVBF4EDF6F", "b198abb8cfb4128a05de3c13f2bda32f");
 
 type HitProps = {
   hit: AlgoliaHit<{
@@ -25,40 +28,34 @@ type HitProps = {
 };
 
 function Hit({ hit }: HitProps) {
+  const { search, url } = hit;
+  if (!search || !search.search_title) return null;
+
   return (
-    <>
-      {hit.search && hit.search.search_title && (
-        <div className="searchPanel">
-          <a
-            className="textSmall"
-            href={hit && hit.url ? hit.url : "/"}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="inner">
-              <div className="thumb">
-                {hit.search.search_image && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    className="imgPrint"
-                    src={hit.search.search_image.url}
-                    alt={hit.search.search_image.title}
-                  />
-                )}
-              </div>
-              <div className="thumbInfo">
-                <div className="caption">
-                  <h3 className="title">{hit.search.search_title}</h3>
-                  <p className="title">{hit.search.search_summary}</p>
-                </div>
-              </div>
+    <div className="searchPanel">
+      <a className="textSmall" href={url || "/"} rel="noreferrer">
+        <div className="inner">
+          <div className="thumb">
+            {search.search_image && (
+              <img
+                className="imgPrint"
+                src={search.search_image.url}
+                alt={search.search_image.title}
+              />
+            )}
+          </div>
+          <div className="thumbInfo">
+            <div className="caption">
+              <h3 className="title">{search.search_title}</h3>
+              <p className="title">{search.search_summary}</p>
             </div>
-          </a>
+          </div>
         </div>
-      )}
-    </>
+      </a>
+    </div>
   );
 }
+
 type ComponentProps = {
   productData: any;
 };
@@ -66,19 +63,16 @@ type ComponentProps = {
 export default function ProductLandingPageSection({
   productData,
 }: ComponentProps) {
-  const lang = localStorage.getItem("lang")
-    ? localStorage.getItem("lang")
-    : "en-us";
-  let filters = `_content_type:products_page AND locale:${lang}`;
+  const lang = localStorage.getItem("lang") || "en-us";
+  const contentTypeFilter = `_content_type:products_page`;
+  let filters = `${contentTypeFilter} AND locale:${lang}`;
+
   return (
     <div className="productLandingPageSection">
-      <InstantSearch
-        searchClient={searchClient}
-        indexName="dev_contentstackpoc"
-      >
-        <Configure analytics={false} filters={filters} />
+      <InstantSearch searchClient={searchClient} {...searchConfig}>
+        <Configure filters={filters} />
         <div className="searchDiv">
-          <h1 className="">{productData.search.search_label}</h1>
+          <h1>{productData.search.search_label}</h1>
           <SearchBox
             placeholder={productData.search.search_placeholder_text}
             autoFocus
@@ -89,13 +83,13 @@ export default function ProductLandingPageSection({
           <HitsPerPage
             items={[
               {
-                label: `${productData.pagination.resultsperpage} hits per page`,
+                label: `${productData.pagination.resultsperpage} results per page`,
                 value: productData.pagination.resultsperpage,
                 default: true,
               },
-              { label: "20 hits per page", value: 20 },
-              { label: "30 hits per page", value: 30 },
-              { label: "40 hits per page", value: 40 },
+              { label: "20 results per page", value: 20 },
+              { label: "30 results per page", value: 30 },
+              { label: "40 results per page", value: 40 },
             ]}
           />
         </div>
