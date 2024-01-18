@@ -42,7 +42,7 @@ export default function RenderComponents(props: RenderProps) {
         if (productPost && component.products_listing) {
           return <ProductLandingPage productData={component.products_listing} {...commonProps} key={`component-${key}`}/>;
         }
-        if (productPost && component.related_articles) {
+        if (productPost && component.featured_products) {
           return <ProductPageSection productData={products} url={url} {...commonProps} key={`component-${key}`}/>;
         }
 
