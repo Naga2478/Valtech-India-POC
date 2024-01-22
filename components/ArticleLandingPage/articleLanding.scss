@@ -16,11 +16,18 @@
         width: 40%;
       }
       .ais-SearchBox-submit {
-        padding: 15px;
+        padding: 16px;
+        border: 1px solid;
       }
       .ais-SearchBox-submitIcon {
         height: 15px;
         width: 15px;
+      }
+      .ais-SearchBox-reset {
+        padding: 16px 20px;
+        position: relative;
+        left: -50px;
+        border: 1px solid;
       }
     }
   }

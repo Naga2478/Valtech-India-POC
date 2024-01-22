@@ -1,3 +1,9 @@
+// foundation
+@import "../foundation/styles/base/variables.scss";
+@import "../foundation/styles/base/layout.scss";
+@import "../foundation/styles/third-party/third-party.scss";
+
+// components
 @import "../components/Header/header.scss";
 @import "../components/Footer/footer.scss";
 @import "../components/Carousel/carousel.scss";

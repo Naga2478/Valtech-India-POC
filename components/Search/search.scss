@@ -1,7 +1,7 @@
 .algoliaSearch {
   .searchBox {
     padding: 20px;
-    width: 50%;
+    width: calc(50% - 40px);
     margin: 0 25%;
   }
 }
@@ -39,4 +39,8 @@
       }
     }
   }
+}
+
+.search-page {
+  overflow-x: hidden;
 }

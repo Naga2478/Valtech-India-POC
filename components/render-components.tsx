@@ -1,5 +1,4 @@
 import React from "react";
-
 import { RenderProps } from "../typescript/component";
 import ArticlePageSection from "./ArticlePage/articlePage";
 import BrandCollectionSection from "./BrandCollection/brandCollection";
@@ -11,6 +10,7 @@ import ShippingSection from "./ShippingInformation/shippingInformation";
 import TestimonialsSection from "./Testimonials/testimonials";
 import ArticleLandingPage from "./ArticleLandingPage/articleLanding";
 import ProductLandingPage from "./ProductLandingPage/productLanding";
+
 export default function RenderComponents(props: RenderProps) {
   const {
     components,
@@ -23,6 +23,7 @@ export default function RenderComponents(props: RenderProps) {
     products,
     url,
   } = props;
+
   return (
     <div
       data-pageref={entryUid}
@@ -30,92 +31,41 @@ export default function RenderComponents(props: RenderProps) {
       data-locale={locale}
     >
       {components?.map((component, key: number) => {
-        if (articlePost === true && component.related_articles) {
-          return (
-            <ArticlePageSection
-              articleData={articles}
-              key={`component-${key}`}
-              url={url}
-            />
-          );
+        const commonProps = { key: `component-${key}` };
+
+        if (articlePost && component.related_articles) {
+          return <ArticlePageSection articleData={articles} url={url} {...commonProps} key={`component-${key}`}/>;
         }
-        if (articlePost === true && component.articles_listing) {
-          return (
-            <ArticleLandingPage
-              articleData={component.articles_listing}
-              key={`component-${key}`}
-            />
-          );
+        if (articlePost && component.articles_listing) {
+          return <ArticleLandingPage articleData={component.articles_listing} {...commonProps} key={`component-${key}`}/>;
         }
-      })}
-      {components?.map((component, key: number) => {
-        if (productPost === true && component.products_listing) {
-          return (
-            <ProductLandingPage
-              productData={component.products_listing}
-              key={`component-${key}`}
-            />
-          );
+        if (productPost && component.products_listing) {
+          return <ProductLandingPage productData={component.products_listing} {...commonProps} key={`component-${key}`}/>;
         }
-        if (productPost === true && component.featured_products) {
-          return (
-            <ProductPageSection
-              productData={products}
-              key={`component-${key}`}
-              url={url}
-            />
-          );
+        if (productPost && component.featured_products) {
+          return <ProductPageSection productData={products} url={url} {...commonProps} key={`component-${key}`}/>;
         }
-      })}
-      {components?.map((component, key: number) => {
+
         if (component.carousel) {
-          return (
-            <Carousel
-              carouselData={component.carousel}
-              key={`component-${key}`}
-            />
-          );
+          return <Carousel carouselData={component.carousel} {...commonProps} key={`component-${key}`}/>;
         }
         if (component.shipping_information) {
-          return (
-            <ShippingSection
-              shippingData={component.shipping_information}
-              key={`component-${key}`}
-            />
-          );
+          return <ShippingSection shippingData={component.shipping_information} {...commonProps} key={`component-${key}`}/>;
         }
         if (component.brand_collection) {
-          return (
-            <BrandCollectionSection
-              brandCollectionData={component.brand_collection}
-              key={`component-${key}`}
-            />
-          );
+          return <BrandCollectionSection brandCollectionData={component.brand_collection} {...commonProps} key={`component-${key}`}/>;
         }
         if (component.testimonials) {
-          return (
-            <TestimonialsSection
-              testimonialsData={component.testimonials}
-              key={`component-${key}`}
-            />
-          );
+          return <TestimonialsSection testimonialsData={component.testimonials} {...commonProps} key={`component-${key}`}/>;
         }
         if (component.related_articles) {
-          return (
-            <RelatedArticlesSection
-              relatedArticleData={component.related_articles}
-              key={`component-${key}`}
-            />
-          );
+          return <RelatedArticlesSection relatedArticleData={component.related_articles} {...commonProps} key={`component-${key}`}/>;
         }
         if (component.featured_products) {
-          return (
-            <FeaturedProductsSection
-              featuredProductsData={component.featured_products}
-              key={`component-${key}`}
-            />
-          );
+          return <FeaturedProductsSection featuredProductsData={component.featured_products} {...commonProps} key={`component-${key}`}/>;
         }
+
+        return null; // Or handle unknown components accordingly
       })}
     </div>
   );
