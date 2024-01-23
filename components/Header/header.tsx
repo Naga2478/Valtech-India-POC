@@ -9,6 +9,7 @@ import Stack from "../../contentstack-sdk";
 import getConfig from "next/config";
 import { addEditableTags } from "@contentstack/utils";
 import { pushData } from "../../helper/dataLayer";
+import MobileMenuScript from './MobileMenuScript'; 
 
 export default function Header({ header, entries }: { header: HeaderProps; entries: Entry }) {
   const router = useRouter();
@@ -51,7 +52,32 @@ export default function Header({ header, entries }: { header: HeaderProps; entri
 
   return (
     <header className="header">
-      <div className="headerContainer">
+      <MobileMenuScript />
+      <div className="menu-toggle" id="mobile-menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    
+      <div className="productLogo productLogoMobile col-md-1">
+        {headerData ? (
+          <Link href="/">
+            <a className="logoTag" title="Contentstack">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="logo"
+                src={headerData.logo.url}
+                alt={headerData.title}
+                title={headerData.title}
+                {...(headerData.logo.$?.url as {})}
+              />
+            </a>
+          </Link>
+        ) : (
+          <Skeleton width={150} />
+        )}
+      </div>
+      <div className="headerContainer" id="headerContainer">
         {headerData?.notification_bar?.show_notification_ ? (
           <div>
           <div className="contactContainer borderBottom">
