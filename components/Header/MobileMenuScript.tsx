@@ -8,9 +8,11 @@ const MobileMenuScript = () => {
         const mobileMenuContent = document.getElementById('headerContainer');
 
         const toggleMobileMenu = () => {
-            mobileMenuContent.style.display = mobileMenuContent?.style.display === 'block' ? 'none' : 'block';
-            const isMobileMenuActive = mobileMenuToggle?.classList.contains('active');
-            mobileMenuToggle?.classList.toggle('active', !isMobileMenuActive);
+            if (mobileMenuContent) {
+                mobileMenuContent.style.display = mobileMenuContent?.style.display === 'block' ? 'none' : 'block';
+                const isMobileMenuActive = mobileMenuToggle?.classList.contains('active');
+                mobileMenuToggle?.classList.toggle('active', !isMobileMenuActive);
+            }
         };
 
         if (mobileMenuToggle) {
