@@ -116,6 +116,7 @@ export default function CarouselSection({ carouselData }: ComponentProps) {
                       children: { children: { text: string }[] }[];
                     };
                     cta: {
+                      href: string | undefined;
                       $: any;
                       title: string;
                     };
@@ -178,7 +179,7 @@ export default function CarouselSection({ carouselData }: ComponentProps) {
                                       </p>
                                       <div className="btnWrap">
                                         <a
-                                          href=""
+                                          href={slideData.cta.href}
                                           className="btn"
                                           {...slideData.cta.$?.title}
                                         >
