@@ -50,7 +50,7 @@ function MyApp(props: Props, { analyticsDetails }: analyticsData) {
   resetDataLayer();
   useEffect(() => {
     fetchData();
-  }, []);
+  });
   async function fetchData() {
     try {
       const data = await getAnalyticsRes();
