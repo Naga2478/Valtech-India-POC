@@ -8,7 +8,7 @@ export default function ContactUsForm() {
     if (typeof window !== "undefined") {
       Formio.createForm(
         document.getElementById("formio"),
-        "https://gquwbocmxhpkbid.form.io/contactus"
+        "https://ijgnbqikgzlyglh.form.io/contactus"
       ).then((form) => {
         try {
           form.on("onChange", (submission: any) => {
