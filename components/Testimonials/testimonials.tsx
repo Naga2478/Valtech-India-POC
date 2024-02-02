@@ -1,31 +1,24 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Skeleton from "react-loading-skeleton";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { useState, useEffect, useRef } from "react";
 import Stack from "../../contentstack-sdk";
-import getConfig from "next/config";
 import { addEditableTags, EntryModel } from "@contentstack/utils";
+import getConfig from "next/config";
 import eventBus from "../../helper/eventBus";
 
-type ComponentProps = {
-  testimonialsData: any;
-};
 
-export default function TestimonialsSection({
+const leftArrowImagePath = "/arrow.png";
+const rightArrowImagePath = "/arrow.png";
+
+
+const TestimonialsSection: React.FC<{ testimonialsData: any }> = ({
   testimonialsData,
-}: ComponentProps) {
-  const subscription = eventBus.subscribe(
-    (event: { type: string; data: any }) => {
-      if (event.type === "selectedLanguage") {
-        selectedLanguage(event.data);
-      }
-    }
-  );
+}) => {
   const [getDetails, setDetails] = useState(testimonialsData);
+  const locale = "en-us";
+  const sliderRef = useRef<any>(null);
 
-  var testimonialsDetails = getDetails ? getDetails : undefined;
-  var locale = "en-us";
   const selectedLanguage = (e: string) => {
     const lang = e;
     getAllEntries(lang);
@@ -36,6 +29,15 @@ export default function TestimonialsSection({
     ? process.env
     : publicRuntimeConfig;
   const liveEdit = envConfig.CONTENTSTACK_LIVE_EDIT_TAGS === "true";
+
+  const subscription = eventBus.subscribe((event: { type: string; data: any }) => {
+    if (event.type === "selectedLanguage") {
+      selectedLanguage(event.data);
+    }
+  });
+
+  const testimonialsDetails = getDetails || undefined;
+
   const getAllEntries = async (lang: string) => {
     const response = await Stack.getEntry({
       contentTypeUid: "page",
@@ -46,34 +48,31 @@ export default function TestimonialsSection({
       jsonRtePath: undefined,
       locale: lang ?? locale,
     });
+
     liveEdit &&
       response[0].forEach((entry: EntryModel) =>
         addEditableTags(entry, "page", true)
       );
+
     const componentData = response[0][0].components;
     const data = componentData.find(
       (component: { testimonials: any }) => component.testimonials
     ).testimonials;
+
     setDetails(data);
   };
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const sliderRef = useRef<any>(null);
+
   useEffect(() => {
     sliderRef.current.swiper.slideTo(currentSlide, 500, false);
   }, [currentSlide]);
 
   const fetchText = (obj: { children: any[] }) => {
-    let text = undefined;
-    if (obj.children && obj.children.length) {
-      obj.children.map((child) => {
-        child.children.map((childText: { text: any }) => {
-          text = childText.text;
-        });
-      });
-    }
-    return text;
+    const child = obj.children?.find((child) => child.children?.[0]?.text);
+    return child?.children?.[0]?.text;
   };
+
   const handleNext = () => {
     if (currentSlide < 4) {
       setCurrentSlide(currentSlide + 1);
@@ -85,6 +84,7 @@ export default function TestimonialsSection({
       setCurrentSlide(currentSlide - 1);
     }
   };
+
   return (
     <div className="testimonialsContainer">
       {testimonialsDetails ? (
@@ -94,7 +94,6 @@ export default function TestimonialsSection({
               <div className="row d-flex flex-wrap">
                 <div className="col-md-2">
                   <div className="reviewIcon">
-                    {/*  eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={testimonialsDetails.icon.url}
                       alt={testimonialsDetails.icon.title}
@@ -121,35 +120,30 @@ export default function TestimonialsSection({
                                 author_name: any;
                               },
                               index: React.Key | null | undefined
-                            ) => {
-                              return (
-                                <SwiperSlide key={index}>
-                                  <div className="swiperSlide">
-                                    <div className="testimonialDetail">
-                                      <p
-                                        {...(testimonial.$
-                                          ?.testimonial_text as {})}
-                                      >
-                                        {testimonial.testimonial_text &&
-                                          fetchText(
-                                            testimonial.testimonial_text
-                                          )}
-                                      </p>
-                                      <div className="authorDetail">
-                                        <div
-                                          className="name"
-                                          {...(testimonial.$
-                                            ?.author_name as {})}
-                                        >
-                                          {testimonial &&
-                                            testimonial.author_name}
-                                        </div>
-                                      </div>
+                            ) => (
+                              <SwiperSlide key={index}>
+                                <div className="swiperSlide">
+                                  <div className="testimonialDetail">
+                                    <p
+                                      {...(testimonial.$
+                                        ?.testimonial_text as {})}
+                                    >
+                                      {testimonial.testimonial_text &&
+                                        fetchText(
+                                          testimonial.testimonial_text
+                                        )}
+                                    </p>
+                                    <div
+                                      className="authorDetail"
+                                      {...(testimonial.$?.author_name as {})}
+                                    >
+                                      {testimonial &&
+                                        testimonial.author_name}
                                     </div>
                                   </div>
-                                </SwiperSlide>
-                              );
-                            }
+                                </div>
+                              </SwiperSlide>
+                            )
                           )}
                       </div>
                       <span
@@ -160,17 +154,15 @@ export default function TestimonialsSection({
                     </div>
                     <div className="swiperArrows">
                       <button className="prevButton" onClick={handlePrevious}>
-                        {/*  eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src="/arrow.png"
+                          src={leftArrowImagePath}
                           alt="leftArrow"
                           className="leftArrow"
                         />
                       </button>
                       <button className="nextButton" onClick={handleNext}>
-                        {/*  eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src="/arrow.png"
+                          src={rightArrowImagePath}
                           alt="rightArrow"
                           className="rightArrow"
                         />
@@ -187,4 +179,6 @@ export default function TestimonialsSection({
       )}
     </div>
   );
-}
+};
+
+export default TestimonialsSection;

@@ -32,7 +32,6 @@ function Hit({ hit }: HitProps) {
           <a
             className="textSmall"
             href={hit && hit.url ? hit.url : "/"}
-            target="_blank"
             rel="noreferrer"
           >
             <div className="inner">
@@ -89,13 +88,13 @@ export default function ArticleLandingPageSection({
           <HitsPerPage
             items={[
               {
-                label: `${articleData.pagination.resultsperpage} hits per page`,
+                label: `${articleData.pagination.resultsperpage} results per page`,
                 value: articleData.pagination.resultsperpage,
                 default: true,
               },
-              { label: "20 hits per page", value: 20 },
-              { label: "30 hits per page", value: 30 },
-              { label: "40 hits per page", value: 40 },
+              { label: "20 results per page", value: 20 },
+              { label: "30 results per page", value: 30 },
+              { label: "40 results per page", value: 40 },
             ]}
           />
         </div>

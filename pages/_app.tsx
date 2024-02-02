@@ -10,10 +10,6 @@ import {
   getAnalyticsRes,
   getRedirectUrl,
 } from "../helper";
-import "nprogress/nprogress.css";
-import "../styles/third-party.css";
-import "../styles/style.css";
-import "react-loading-skeleton/dist/skeleton.css";
 import "@contentstack/live-preview-utils/dist/main.css";
 import { Props } from "../typescript/pages";
 import "../components/styles.scss";
@@ -54,7 +50,7 @@ function MyApp(props: Props, { analyticsDetails }: analyticsData) {
   resetDataLayer();
   useEffect(() => {
     fetchData();
-  }, []);
+  });
   async function fetchData() {
     try {
       const data = await getAnalyticsRes();
